@@ -45,7 +45,7 @@ class LandingView(ContextMixin, View):
                     msg = None
                 else:
                     msg = tpl.render(data=customer)
-                return render(request, 'success.html', {'msg': msg})
+                return render(request, 'index.html', {'msg': msg, 'valid': True})
         return render(request, 'index.html', self.get_context_data(form=form),
                       status=400)
 

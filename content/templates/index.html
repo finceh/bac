@@ -125,6 +125,9 @@ charset=UTF-8" />
             });
             $("#inp-lb").mask("+38 (999) 999 99 99");
 			$( "#inp-rb" ).datepicker($.datepicker.regional[ "fr" ]);
+			{% if form.ins_end.value %}
+                $( "#inp-rb" ).datepicker("setDate", new Date({{ form.instance.ins_end.value|date:"Y,m,d" }}) );
+			{% endif %}
 
             if($(document).width()>920) {
 				$("#header").height($(document).width() * 127 / 1440);
@@ -134,9 +137,10 @@ charset=UTF-8" />
                 $(".block_left").prepend($form);
                 $form.css({"margin-bottom":"20px;"})
             }
-			$("#sbmt-form").click(function () {
-				$(".modal-window").fadeIn().delay(5000).fadeOut();
-			});
+
+            {% if valid %}
+                $(".modal-window").fadeIn().delay(5000).fadeOut();
+            {% endif %}
 			m_pos = $("#menu10").position();
 			$("#arrow").width(m_pos.left-80);
 
