@@ -1,0 +1,30 @@
+{% extends 'index.html' %}
+{% block bodyclass %}absolute{% endblock %}
+{% block content %}
+    <div class="msg">
+    {% if msg %}
+    {{ msg|safe }}
+    {% else %}
+    Поздравляем! Вы успешно зарегистрировались!
+    {% endif %}
+    </div>
+{% endblock %}
+
+{% block extrascripts %}
+        <script type="text/javascript">
+		$(document).ready(function () {
+
+
+			if($(document).width()>920) {
+				$("#header").height($(document).width() * 127 / 1440);
+			}
+
+		});
+
+		$(window).resize(function () {
+			if($(document).width()>920) {
+				$("#header").height($(document).width() * 127 / 1440);
+			}
+		})
+	</script>
+    {% endblock %}

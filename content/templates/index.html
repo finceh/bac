@@ -1,0 +1,156 @@
+{% load static %}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+<head>
+	{% if not debug %}
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	  ga('create', 'UA-60163556-2', 'auto');
+	  ga('send', 'pageview');
+	</script>
+	{% endif %}
+<meta http-equiv="Content-Type" content="text/html;
+charset=UTF-8" />
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"/>
+<link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" />
+<link href="{% static "css/bootstrap.min.css" %}" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+<link href="" rel="shortcut icon" type="image/x-icon" />
+<title>Талисман</title>
+</head>
+<body class="{% block bodyclass %}{% endblock %}">
+	<header id="header">
+
+		<div class="col-xs-6" style="height: 100%"><div class="logo"><img src="{% static "img/logos.png" %}"></div></div>
+		<div class="col-xs-6 right" id="right-text"><img src="{% static "img/phone-ico.png" %}"><p class="left inline-bl add-txt">горячая линия: <br><span class="phone-num">0800500010</span></p></div>
+	</header>
+	<div class="content">
+		<div class="wrapper">
+        {% block content %}
+		<div class="block_left">
+            {% if texts.intro %}{{ texts.intro.text|safe }}{% endif %}
+			<div id="arrow">
+				<div class="arrow-content right">
+                    <div class="left inline-bl">
+                        {% if texts.motivate %}{{ texts.motivate.text|safe }}{% endif %}
+                    </div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="block_right">
+			<div id="menu7">
+				{% for service in services %}
+                {% if forloop.counter|divisibleby:2 %}<div class="row">{% endif %}
+				<div class="info-tab col-xs-6">
+					<img src="{% static service.get_filename %}" align="left" />
+					<div class="colortext_icon">{{ service.text|safe }}</div>
+				</div>
+				{% if forloop.counter|divisibleby:2 or forloop.last %}</div><br>{% endif %}
+				{% endfor %}
+			</div>
+			<form id="send_form" method="post">{% csrf_token %}
+            {% block motivation %}
+			<div id="menu10">
+                    <div class="col-xs-6">
+                        <input class="form-field" id="inp-lt" type="text" placeholder="Ваше ФИО" name="fullname"{% if form.fullname.value %} value="{{ form.fullname.value }}"{% endif %}/>
+                        {% if form.fullname.errors %}<div class="inp-err">{{ form.fullname.errors}}</div>{% endif %}
+                    </div>
+                    <div class="col-xs-6">
+                        <input class="form-field" id="inp-rt" type="email" placeholder="Ваш e-mail" name="email"{% if form.email.value %} value="{{ form.email.value }}"{% endif %}/>
+                        {% if form.email.errors %}<div class="inp-err">{{ form.email.errors}}</div>{% endif %}
+                    </div>
+					<hr id="grad-l">
+                    <div class="col-xs-6">
+                        <input class="form-field" id="inp-lb" type="tel" placeholder="+380(__)-___-__-__" {% if form.phone.value %} value="{{ form.phone.value }}"{% endif %}/>
+                        <input style="display: none;" id="inp-phone"  name="phone"/>
+                        {% if form.phone.errors %}<div class="inp-err">{{ form.phone.errors}}</div>{% endif %}
+                    </div>
+					<div class="col-xs-6">
+                        <input type="text" placeholder="окончание ОСАГО" class="form-field" id="inp-rb" name="ins_end"{% if form.ins_end.value %} value="{{ form.ind_end.value }}"{% endif %}>
+                        {% if form.ins_end.errors %}<div class="inp-err">{{ form.ins_end.errors}}</div>{% endif %}
+                    </div>
+			</div>
+            {% endblock %}
+			<div id="menu8">
+				Пожалуйста, внесите корректно свои личные данные и контакты
+			</div>
+			<div class="row" style="margin: 0px;" id="menu9">
+				<button type="submit" href="#" onclick="ga('send', 'event', 'KLO', 'ПОЛУЧИТЬ КАРТУ')" class="button col-xs-6" id="sbmt-form"/><b style="font-size: 22px;">ПОЛУЧИТЬ КАРТУ</b></button>
+				<div class="col-xs-6 cardt"><p class="col-xs-5 font-18" style="padding: 0px">осталось <br>карт:</p> <p style="padding: 0px;" class="col-xs-7"><b>{{ cards_avail }}</b></p></div>
+			</div>
+			</form>
+		</div>
+        {% endblock %}
+		</div>
+			<div id="menu6">
+				{{ texts.info.text|safe }}
+			</div>
+	</div>
+	<div class="modal-window">
+		<div class="modal-content">
+			<p class="modal-ico"><img src="{% static "img/thanks-ico.png" %}"></p>
+			<h3>Спасибо за Ваш выбор и Вашу лояльность!</h3>
+			<p>На указанный Вами email отправлено письмо с уникальным номером Вашей карты технической помощи в электронном виде и инструкцией по ее использованию!</p>
+			<hr>
+			<p>Остались вопросы? <br>Номер гарячей линии 0 800 5000 10</p>
+		</div>
+	</div>
+	<footer>
+		<div class="footer-content col-xs-12">
+			<div class="col-xs-2 col-sm-3 socials"></div>
+			<p class="main-footer col-sm-6 col-xs-8" style="text-align: center">
+				{% if texts.footer %}{{ texts.footer.text|safe }}{% else %}
+				<a href="http://talisman-sk.com.ua/about">О Талисмане</a> | <a href="http://talisman-sk.com.ua/kasko" title="" id="">КАСКО</a> | <a href="http://talisman-sk.com.ua/osago">ОСАГО</a> | <a href="http://klo.ua/" title="" >KLO </a> <b>0800500010</b>
+				{% endif %}
+			</p>
+			<div style="text-align: right" class="right col-sm-3 col-xs-2 socials"><a href="https://www.facebook.com/talismansk/"><img class="social-ico" src="{% static "img/F.png" %}"></a></div></div>
+	</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    {% block extrascripts %}
+
+    <script src="{% static 'js/mask.js' %}"></script>
+        <script type="text/javascript">
+		$(document).ready(function () {
+
+            $("#inp-phone").val($("#inp-lb").val().replace().replace(/\+38/g,'').replace(/[\(\)^\s]/g,''));
+            $("#inp-lb").on('change', function () {
+                $("#inp-phone").val($("#inp-lb").val().replace().replace(/\+38/g,'').replace(/[\(\)^\s]/g,''));
+            });
+            $("#inp-lb").mask("+38 (999) 999 99 99");
+			$( "#inp-rb" ).datepicker($.datepicker.regional[ "fr" ]);
+
+            if($(document).width()>920) {
+				$("#header").height($(document).width() * 127 / 1440);
+			}
+			else {
+                var $form = $("#send_form");
+                $(".block_left").prepend($form);
+                $form.css({"margin-bottom":"20px;"})
+            }
+			$("#sbmt-form").click(function () {
+				$(".modal-window").fadeIn().delay(5000).fadeOut();
+			});
+			m_pos = $("#menu10").position();
+			$("#arrow").width(m_pos.left-80);
+
+
+		});
+
+		$(window).resize(function () {
+			if($(document).width()>920) {
+                $("#header").height($(document).width() * 127 / 1440);
+				m_pos = $("#menu10").position();
+				$("#arrow").width(m_pos.left - 80);
+			}
+		})
+	</script>
+    {% endblock %}
+</body>
+</html>

@@ -1,0 +1,16 @@
+{% extends "admin/change_list.html" %}
+{% block object-tools-items %}
+<li>
+    <a href="{% url 'admin:clean_customers' %}">Обнулить</a>
+</li>
+<li>
+    <a href="{% url 'admin:export_customers' 'xlsx' %}{{ cl.get_query_string }}">Экспорт в XLSX</a>
+</li>
+<li>
+    <a href="{% url 'admin:export_customers' 'csv' %}{{ cl.get_query_string }}">Экспорт в CSV</a>
+</li>
+<li>
+    <a href="{% url 'admin:import_customers' %}" class="addlink">Импорт</a>
+</li>
+{{ block.super }}
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'admin/base_site.html' %}
+{% load i18n %}
+{% block extrastyle %}
+<style>
+    .warning {
+        font-size: 14px;
+        font-weight: 700;
+        color: #ba2121;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=app.name %}">{{ app.verbose_name }}</a>
+&rsaquo; <a href="{% url 'admin:content_customer_changelist' %}">{{ model_name }}</a>
+&rsaquo; <a href="">Импорт</a>
+</div>
+{% endblock %}
+{% block content %}
+<div class="warning">
+    Внимание! Вся информация о существующих пользователях будет удалена!
+</div>
+<form method="post" action="{% url 'admin:import_customers' %}" enctype="multipart/form-data" onsubmit="return confirm('Вы действительно хотите удалить всю информацию о существующих пользователях?');">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <p class="help">Импортировать данные можно из файла в формате xlsx со столбцами, аналогичными столбцам при экспорте в xlsx.</p>
+    <button>Отправить</button>
+</form>
+{% endblock %}

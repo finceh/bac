@@ -1,0 +1,11 @@
+Django==1.10
+MySQL-python==1.2.5
+argparse==1.2.1
+django-ckeditor==5.1.1
+django-solo==1.1.2
+et-xmlfile==1.0.1
+jdcal==1.2
+openpyxl==2.3.5
+python-dateutil==2.5.3
+six==1.10.0
+wsgiref==0.1.2

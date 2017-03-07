@@ -1,0 +1,23 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block bodyclass %}{{ block.super }} delete-confirmation delete-selected-confirmation{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=app.name %}">{{ app.verbose_name }}</a>
+&rsaquo; <a href="{% url 'admin:content_customer_changelist' %}">{{ model_name }}</a>
+&rsaquo; <a href="">Обнулить</a>
+</div>
+{% endblock %}
+
+{% block content %}
+    <p>Вы уверены, что хотите удалить информацию обо всех пользователях и отправленных им письмах?</p>
+    <form method="post">{% csrf_token %}
+    <div>
+    <input type="submit" value="Да" />
+    <a href="{% url 'admin:content_customer_changelist' %}" class="button cancel-link">Нет</a>
+    </div>
+    </form>
+{% endblock %}
