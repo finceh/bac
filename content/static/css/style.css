@@ -112,6 +112,11 @@ p {
 	height: 100%;
 }
 
+
+.bac_logo{
+	height: 150px  !important;
+}
+
 .contact {
 	font-size: 1.5em;
 	font-family: Helvetica, sans-serif;
