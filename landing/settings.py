@@ -86,9 +86,9 @@ WSGI_APPLICATION = 'landing.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'talisman',
-        'USER': 'talisman',
-        'PASSWORD': 'talisman',
+        'NAME': 'talisman-bac',
+        'USER': 'talisman-bac',
+        'PASSWORD': 'talisman-bac',
     }
 }
 
