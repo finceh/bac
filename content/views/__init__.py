@@ -27,8 +27,8 @@ class LandingView(ContextMixin, View):
         form = CustomerForm(request.POST)
         if form.is_valid():
             customer = form.cleaned_data
-            customer['last_name'],\
-            customer['first_name'],\
+            customer['last_name'], \
+            customer['first_name'], \
             customer['middle_name'] = customer.pop('fullname').split()
             customer['utm_link'] = request.session.get('utm')
             customer = Customer(**customer)
@@ -45,7 +45,8 @@ class LandingView(ContextMixin, View):
                     msg = None
                 else:
                     msg = tpl.render(data=customer)
-                return render(request, 'index.html', {'msg': msg, 'valid': True})
+                return render(request, 'index.html',
+                              {'msg': msg, 'valid': True, 'cards_avail': Customer.objects.avail_cards_count()})
         return render(request, 'index.html', self.get_context_data(form=form),
                       status=400)
 

@@ -16,6 +16,7 @@ from dateutil.relativedelta import relativedelta
 from ckeditor.fields import RichTextField
 
 from config.models import SiteConfiguration
+from django.db.models import F
 
 
 class ActiveManager(models.Manager):
@@ -224,6 +225,10 @@ def on_customer_create(sender, instance, **kwargs):
         if card not in existing_cards:
             instance.card = card
             break
+    if Customer.objects.avail_cards_count() <= conf.lower_limit:
+        conf.card_start = F('card_start') + conf.increase_by
+        conf.card_end = F('card_end') + conf.increase_by
+        conf.save()
 
 
 @receiver(post_save, sender=Customer)
