@@ -18,7 +18,7 @@ class SiteConfiguration(SingletonModel):
     email_subject = models.CharField('Тема письма', max_length=255,
                                      default='Поздравляем!')
     lower_limit = models.PositiveIntegerField(verbose_name='Увеличивать диапазон карт при достижении их числа',
-                                              default=1)
+                                              default=10)
     increase_by = models.PositiveIntegerField(verbose_name='Увеличивать диапазон на', default=200)
 
     def get_cards_range(self):

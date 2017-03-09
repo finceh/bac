@@ -226,7 +226,6 @@ def on_customer_create(sender, instance, **kwargs):
             instance.card = card
             break
     if Customer.objects.avail_cards_count() <= conf.lower_limit:
-        conf.card_start = F('card_start') + conf.increase_by
         conf.card_end = F('card_end') + conf.increase_by
         conf.save()
 
