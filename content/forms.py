@@ -11,8 +11,8 @@ class CustomerForm(forms.Form):
         label='Ваше ФИО',
         max_length=152,
         validators=[
-            RegexValidator(r'^(?:[^\s]+\s+){2}(?:[^\s]+)$')
-        ]
+            RegexValidator(r'^(?:[^\s]+\s+){2}(?:[^\s]+)$', message='Введите полное ФИО.')
+        ],
     )
     ins_end = forms.DateField(label='Когда у вас оканчивается ОСАГО',
                               input_formats=('%m/%d/%Y',))
