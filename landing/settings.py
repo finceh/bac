@@ -156,7 +156,7 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 # Image to check when user opens an email
 DUMMY_IMAGE = os.path.join(BASE_DIR, 'transp.png')
 
-DATA_SOURCE = "KLO"
+DATA_SOURCE = "BAC"
 
 try:
     from local_settings import *
