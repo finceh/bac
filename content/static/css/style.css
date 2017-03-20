@@ -106,15 +106,15 @@ p {
 	bottom: 0;
 	position: absolute;
 	margin: auto;
+	display: flex;
+	justify-content: flex-end;
+	align-content: flex-start;
+	width: 100%;
 }
 
 .logo img{
 	height: 100%;
-}
-
-
-.bac_logo{
-	height: 150px  !important;
+	margin-left: 20px;
 }
 
 .contact {
