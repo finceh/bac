@@ -11,7 +11,8 @@ class SiteConfigurationAdmin(SingletonModelAdmin):
     fieldsets = (('Диапазон карт', {'fields': (('card_start', 'card_end'),
                                                'get_cards_available')}),
                  (None, {'fields': (('lower_limit', 'increase_by',),)}),
-                 (None, {'fields': ('email_subject',)}),)
+                 (None, {'fields': ('email_subject',)}),
+                 (None, {'fields': ('card_letters',)}),)
 
     def get_cards_available(self, obj):
         return Customer.objects.avail_cards_count()

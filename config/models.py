@@ -21,6 +21,8 @@ class SiteConfiguration(SingletonModel):
                                               default=10)
     increase_by = models.PositiveIntegerField(verbose_name='Увеличивать диапазон на', default=200)
 
+    card_letters = models.CharField(verbose_name='Буквенная часть карты', max_length=5, default='UTK')
+
     def get_cards_range(self):
         return xrange(self.card_end, self.card_start - 1, -1)
 

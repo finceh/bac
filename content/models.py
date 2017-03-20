@@ -184,7 +184,9 @@ class Customer(models.Model):
     def get_card_name(self):
         if self.card is None:
             return ''
-        return 'UTK %i' % self.card
+        conf = SiteConfiguration.get_solo()
+        letters = conf.card_letters
+        return '{0} {1}'.format(letters, self.card)
 
 
 class EmailTask(models.Model):
