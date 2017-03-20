@@ -184,7 +184,7 @@ class Customer(models.Model):
     def get_card_name(self):
         if self.card is None:
             return ''
-        return 'UV %i' % self.card
+        return 'UTK %i' % self.card
 
 
 class EmailTask(models.Model):
