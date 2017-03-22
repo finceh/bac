@@ -17,6 +17,8 @@ from ckeditor.fields import RichTextField
 
 from config.models import SiteConfiguration
 from django.db.models import F
+from email.mime.image import MIMEImage
+from django.contrib.staticfiles.templatetags.staticfiles import static
 
 
 class ActiveManager(models.Manager):
@@ -258,6 +260,15 @@ def on_email_task_save(sender, instance, created, **kwargs):
                                      body=text, to=[instance.customer.email],
                                      from_email=settings.DEFAULT_FROM_EMAIL)
         msg.attach_alternative(text, 'text/html')
+        card_img = MIMEImage(open('content/static/img/card-h.png', 'rb').read())
+        card_img.add_header('Content-ID', '<card_image>')
+        logo = MIMEImage(open('content/static/img/logo.png', 'rb').read())
+        logo.add_header('Content-ID', '<logo>')
+        bac_logo = MIMEImage(open('content/static/img/BAC_Logo.png', 'rb').read())
+        bac_logo.add_header('Content-ID', '<bac_logo>')
+        msg.attach(card_img)
+        msg.attach(logo)
+        msg.attach(bac_logo)
         try:
             msg.send(fail_silently=False)
         except:
